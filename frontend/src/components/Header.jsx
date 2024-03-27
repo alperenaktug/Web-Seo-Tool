@@ -5,17 +5,19 @@ export default function Header() {
     <div className="bg-slate-500">
       <div className="flex justify-between items-center max-w-6xl mx-auto p-5">
         <Link to="/">
-          <h1 className="font-bold font-mono text-white ">WebTool</h1>
+          <h1 className="font-bold font-mono  text-white text-xl rounded-2xl hover:scale-110 ">
+            WebTool
+          </h1>
         </Link>
         <ul className="flex gap-4 font-mono text-white  ">
           <Link to="/">
-            <li>Home</li>
+            <li className="text-lg  rounded-2xl hover:scale-110 ">Home</li>
           </Link>
           <Link to="/about ">
-            <li>About</li>
+            <li className="text-lg rounded-2xl hover:scale-110 ">About</li>
           </Link>
           <Link to="/sign-in">
-            <li>Sign In</li>
+            <li className="text-lg rounded-2xl hover:scale-110 ">Sign In</li>
           </Link>
         </ul>
       </div>
