@@ -7,7 +7,7 @@ import {
 
 export default function Footer() {
   return (
-    <footer className="bg-slate-500 text-white py-6">
+    <footer className="bg-sky-700 text-white py-6">
       <div className="container mx-auto flex justify-between items-center">
         <div className="text-center md:text-left">
           <p className="pl-4">&copy; 2024 My Website. Tüm hakları saklıdır.</p>

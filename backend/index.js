@@ -24,7 +24,7 @@ app.listen(3000, () => {
 });
 
 app.use("/backend/user", userRoutes);
-app.use("/api/auth", authRoutes);
+app.use("/backend/auth", authRoutes);
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
