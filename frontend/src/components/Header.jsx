@@ -4,20 +4,18 @@ import { useSelector } from "react-redux";
 export default function Header() {
   const { currentUser } = useSelector((state) => state.user);
   return (
-    <div className="bg-sky-700">
-      <div className="flex justify-between items-center max-w-6xl mx-auto p-5">
-        <Link to="/">
-          <h1 className="font-bold font-mono  text-white text-xl rounded-2xl hover:scale-110 ">
-            WebTool
-          </h1>
-        </Link>
-        <ul className="flex gap-4 font-mono text-white  ">
-          <Link to="/">
-            <li className="text-lg  rounded-2xl hover:scale-110 ">Home</li>
-          </Link>
-          <Link to="/about ">
-            <li className="text-lg rounded-2xl hover:scale-110 ">About</li>
-          </Link>
+    <div className="flex justify-between items-center p-4 shadow-lg">
+      <div className="nav-logo">
+        <p className="ml-40 text-gray-900 text-2xl font-semibold">Webtool</p>
+      </div>
+      <ul className="flex items-center list-none gap-12 text-gray-700 text-lg font-medium mr-16">
+        <li className="ml-auto flex flex-col justify-center items-center cursor-pointer">
+          <Link to="/">Home</Link>
+        </li>
+        <li className="flex flex-col justify-center items-center cursor-pointer">
+          <Link to="/about">About</Link>
+        </li>
+        <li className="flex flex-col justify-center items-center cursor-pointer">
           <Link to="/profile">
             {currentUser ? (
               <img
@@ -26,11 +24,13 @@ export default function Header() {
                 className="h-7 w-7 rounded-full object-cover"
               />
             ) : (
-              <li>Sign In</li>
+              <button className="w-40 h-15 outline-none border border-gray-400 rounded-full text-gray-700 text-lg font-medium bg-white cursor-pointer">
+                SignIn
+              </button>
             )}
           </Link>
-        </ul>
-      </div>
+        </li>
+      </ul>
     </div>
   );
 }

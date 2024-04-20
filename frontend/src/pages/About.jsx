@@ -1,22 +1,70 @@
+import imageSrc1 from "../images/website-usability-testing.png";
+import imageSrc2 from "../images/usabilitytesting101_final7-copy.png";
+
 export default function About() {
   return (
-    <div className="px-4 py-12 max-w-2xl mx-auto">
-      <h1 className="text-3xl font-bold  mb-4 text-slate-800">About</h1>
+    <div className="bg-white px-4 py-12 max-w-2xl mx-auto">
+      <div>
+        <p className="mb-4 text-slate-700">
+          <h1 className="text-3xl font-bold mb-4">Hakkımızda</h1>
+          <br />
+          Merhaba ve hoş geldiniz! Biz webtool şirketi, dijital dünyada
+          kullanıcı deneyimi ve arama motoru optimizasyonu (SEO) konularında
+          uzmanlaşmış bir ekip olarak sizlere hizmet veriyoruz. Amacımız, web
+          sitenizin kullanılabilirliğini artırmak ve arama motorlarında daha üst
+          sıralara çıkmanızı sağlamak için özelleştirilmiş çözümler sunmaktır.
+          Web Kullanılabilirliği Testi Nedir? Web kullanılabilirliği testi, web
+          sitenizin ziyaretçileri tarafından nasıl kullanıldığını anlamak ve
+          olası kullanıcı sorunlarını belirlemek için yapılan bir süreçtir. Bu
+          testler, kullanıcı deneyimini iyileştirmek ve web sitenizin
+          erişilebilirliğini artırmak için kritik öneme sahiptir.
+          Kullanılabilirlik testlerimiz, kullanıcıların sitenizi nasıl
+          gezdiğini, hangi alanlarda zorlandıklarını ve hangi iyileştirmelerin
+          yapılması gerektiğini belirlemek için çeşitli metodolojileri kullanır.
+        </p>
+      </div>
+      <br />
+      <img src={imageSrc1} alt="İlgili resmin açıklaması" className="mb-8" />
+      <br />
+      <div>
+        <p className="mb-4 text-slate-700">
+          <h1 className="text-3xl font-bold mb-4">
+            SEO (Arama Motoru Optimizasyonu) Nedir?
+          </h1>
+          <br />
+          SEO, web sitenizin arama motorlarında daha üst sıralarda görünmesini
+          sağlayan bir dizi teknik ve stratejidir. İyi bir SEO stratejisi,
+          sitenizin daha fazla organik trafik çekmesine ve hedef kitlenizle
+          etkileşimi artırmasına yardımcı olur. Arama motorlarının
+          algoritmalarının sürekli değişmesi nedeniyle, SEO stratejilerimiz her
+          zaman güncel ve etkili olacak şekilde tasarlanmıştır.
+        </p>
+      </div>
+      <br />
+      <img src={imageSrc2} alt="İlgili resmin açıklaması" className="mb-8" />
+      <br />
+      <div>
+        <p className="mb-4 text-slate-700">
+          <h1 className="text-3xl font-bold mb-4">
+            Neden Bize Güvenmelisiniz?
+          </h1>
+          Webtool şirketi olarak, web sitenizin başarısını artırmak için en son
+          teknolojiyi ve en iyi uygulamaları kullanıyoruz. Uzman ekibimiz,
+          kullanılabilirlik testleri ve SEO stratejileri konusunda geniş bir
+          deneyime sahiptir ve her müşterimizin ihtiyaçlarına özel çözümler
+          sunar. Bizimle İletişime Geçin Web sitenizin kullanılabilirliğini
+          artırmak ve arama motorlarında daha üst sıralarda yer almak için bize
+          ulaşın. Profesyonel ekibimiz, size özel çözümler sunmak için burada!
+        </p>
+      </div>
+      <br />
+      <br />
       <p className="mb-4 text-slate-700">
-        This is a MERN (MongoDB, Express, React, Node.js) stack application with
-        authentication. It allows users to sign up, log in, and log out, and
-        provides access to protected routes only for authenticated users.
-      </p>
-      <p className="mb-4 text-slate-700">
-        The front-end of the application is built with React and uses React
-        Router for client-side routing. The back-end is built with Node.js and
-        Express, and uses MongoDB as the database. Authentication is implemented
-        using JSON Web Tokens (JWT).
-      </p>
-      <p className="mb-4 text-slate-700">
-        This application is intended as a starting point for building full-stack
-        web applications with authentication using the MERN stack. Feel free to
-        use it as a template for your own projects!
+        <p className="mb-4 text-slate-700">
+          Bu {"Hakkında"} sayfası, şirketinizin hizmetlerini ve uzmanlık
+          alanlarını net bir şekilde tanımlar ve potansiyel müşterilere neden
+          size güvenmeleri gerektiği konusunda güven verir.
+        </p>
       </p>
     </div>
   );
