@@ -18,20 +18,20 @@ export default function Home() {
   };
 
   return (
-    <div className=" max-w-7xl justify-centermx-auto">
-      <div className="relative top-60 left-10 flex space-x-4 items-center">
+    <div className=" max-w-7xl justify-between mx-auto">
+      <div className="relative top-60 left-10 flex space-x-4 items-center mr-28">
         <input
           type="text"
           placeholder="Enter URL to Analyze..."
-          className="px-20 py-2 border border-gray-300 rounded-md focus:outline focus:border-sky-500  w-1/3"
+          className="px-28 py-2 border border-gray-300 rounded-md focus:outline focus:border-grey-500  w-1/3 "
         />
 
-        <button className="px-4 py-2 border border-gray-300 rounded-md">
+        <button className="px-6 py-2 border border-gray-300 rounded-md focus:outline font-serif  ">
           Analyze
         </button>
       </div>
 
-      <div className="px-2 py-8 max-w-2xl mx-auto fixed right-6">
+      <div className="px-2 py-8 max-w-2xl mx-auto fixed right-6 mr-8">
         <div style={{ marginRight: "auto", marginLeft: 0 }}>
           <Slider {...settings}>
             <div>

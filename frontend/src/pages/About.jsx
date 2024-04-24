@@ -3,10 +3,10 @@ import imageSrc2 from "../images/usabilitytesting101_final7-copy.png";
 
 export default function About() {
   return (
-    <div className="bg-white px-4 py-12 max-w-2xl mx-auto">
+    <div className="flex flex-col  px-4 py-12 max-w-2xl mx-auto">
       <div>
-        <p className="mb-4 text-slate-700">
-          <h1 className="text-3xl font-bold mb-4">Hakkımızda</h1>
+        <p className="mb-4 mt-8 text-slate-700 font-serif text-lg ">
+          <h1 className="text-4xl font-serif mb-4 font-600">Hakkımızda</h1>
           <br />
           Merhaba ve hoş geldiniz! Biz webtool şirketi, dijital dünyada
           kullanıcı deneyimi ve arama motoru optimizasyonu (SEO) konularında
@@ -27,8 +27,8 @@ export default function About() {
       <img src={imageSrc1} alt="İlgili resmin açıklaması" className="mb-8" />
       <br />
       <div>
-        <p className="mb-4 text-slate-700">
-          <h1 className="text-3xl font-bold mb-4">
+        <p className="mb-4 text-slate-700 text-lg">
+          <h1 className="text-4xl font-600 mb-4 font-serif">
             SEO (Arama Motoru Optimizasyonu) Nedir?
           </h1>
           <br />
@@ -44,10 +44,8 @@ export default function About() {
       <img src={imageSrc2} alt="İlgili resmin açıklaması" className="mb-8" />
       <br />
       <div>
-        <p className="mb-4 text-slate-700">
-          <h1 className="text-3xl font-bold mb-4">
-            Neden Bize Güvenmelisiniz?
-          </h1>
+        <p className="mb-4 text-slate-700 text-lg">
+          <h1 className="text-4xl font-600 mb-4">Neden Bize Güvenmelisiniz?</h1>
           Webtool şirketi olarak, web sitenizin başarısını artırmak için en son
           teknolojiyi ve en iyi uygulamaları kullanıyoruz. Uzman ekibimiz,
           kullanılabilirlik testleri ve SEO stratejileri konusunda geniş bir
@@ -60,7 +58,7 @@ export default function About() {
       <br />
       <br />
       <p className="mb-4 text-slate-700">
-        <p className="mb-4 text-slate-700">
+        <p className="mb-4 text-slate-700 text-lg">
           Bu {"Hakkında"} sayfası, şirketinizin hizmetlerini ve uzmanlık
           alanlarını net bir şekilde tanımlar ve potansiyel müşterilere neden
           size güvenmeleri gerektiği konusunda güven verir.

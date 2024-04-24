@@ -1,41 +1,39 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faFacebookF,
-  faTwitter,
-  faInstagram,
-} from "@fortawesome/free-brands-svg-icons";
-
-export default function Footer() {
+const Footer = () => {
   return (
-    <footer className=" bg-sky-700 text-white py-6 ">
-      <div className="container mx-auto flex justify-between items-center">
-        <div className="text-center md:text-left">
-          <p className="pl-4">&copy; 2024 My Website. Tüm hakları saklıdır.</p>
-        </div>
-        <div className="flex justify-start md:justify-end items-center ">
-          <div className="flex space-x-6">
-            <a
-              href="#"
-              className="text-white hover:text-gray-300 rounded-2xl hover:scale-110 "
-            >
-              <FontAwesomeIcon icon={faFacebookF} size="lg" />
+    <footer className="bg-white rounded-lg shadow m-4 dark:bg-gray-800">
+      <div className="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
+        <span className="text-md text-gray-500 sm:text-center dark:text-gray-400 mr-8 ">
+          © 2024{" "}
+          <a href="https://flowbite.com/" className="hover:underline">
+            Copyright
+          </a>
+          - All Right Reserved.
+        </span>
+        <ul className="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
+          <li>
+            <a href="#" className="hover:underline me-4 md:me-6 text-sm">
+              About
             </a>
-            <a
-              href="#"
-              className="text-white hover:text-gray-300 rounded-2xl hover:scale-110 "
-            >
-              <FontAwesomeIcon icon={faTwitter} size="lg" />
+          </li>
+          <li>
+            <a href="#" className="hover:underline me-4 md:me-6 text-sm">
+              Privacy Policy
             </a>
-            <a
-              href="#"
-              className="text-white pr-20 hover:text-gray-300 rounded-2xl hover:scale-110 "
-            >
-              <FontAwesomeIcon icon={faInstagram} size="lg" />
+          </li>
+          <li>
+            <a href="#" className="hover:underline me-4 md:me-6 text-sm">
+              Licensing
             </a>
-          </div>
-          <div className="flex justify-center md:justify-end"></div>
-        </div>
+          </li>
+          <li>
+            <a href="#" className="hover:underline text-sm">
+              Contact
+            </a>
+          </li>
+        </ul>
       </div>
     </footer>
   );
-}
+};
+
+export default Footer;
