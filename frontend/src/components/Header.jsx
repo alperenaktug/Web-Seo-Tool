@@ -7,7 +7,7 @@ export default function Header() {
     <div className="flex justify-between items-center p-4 shadow-lg">
       <div className="nav-logo">
         <p className="ml-40 text-gray-900 text-3xl font-500 font-serif cursor-pointer hover:scale-105">
-          WebTool
+          <Link to="/">WebTool</Link>
         </p>
       </div>
       <ul className="flex items-center list-none gap-12 text-gray-700 text-lg font-medium mr-16">

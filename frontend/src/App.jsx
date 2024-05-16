@@ -8,6 +8,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import PrivateRoute from "./components/PrivateRoute";
 import Contact from "./pages/Contact";
+import Analyze4 from "./pages/Analyze4";
 
 export default function App() {
   return (
@@ -21,6 +22,8 @@ export default function App() {
             <Route path="/sign-in" element={<SignIn />} />
             <Route path="/sign-up" element={<SignUp />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/analyze4/:url" element={<Analyze4 />} />
+
             <Route element={<PrivateRoute />}>
               <Route path="/profile" element={<Profile />} />
             </Route>

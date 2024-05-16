@@ -5,7 +5,8 @@ import firstImage from "../images/conduct-a-web-usability-test-infographic.webp"
 import secondImage from "../images/designer-creating-website-on-computer-600nw-2187607767.webp";
 import thirdImage from "../images/How-To-Perform-a-Usability-Test-4-12.png";
 import fourthImage from "../images/web-design-development-usibility.png";
-
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 export default function Home() {
   const settings = {
     dots: true,
@@ -16,6 +17,12 @@ export default function Home() {
     autoplay: true,
     autoplaySpeed: 2000,
   };
+  const [inputValue, setInputValue] = useState("");
+  const navigate = useNavigate();
+
+  const handleAnalyze = () => {
+    navigate(`/analyze4/${encodeURIComponent(inputValue)}`);
+  };
 
   return (
     <div className=" max-w-7xl justify-between mx-auto">
@@ -24,9 +31,14 @@ export default function Home() {
           type="text"
           placeholder="Enter URL to Analyze..."
           className="px-28 py-2 border border-gray-300 rounded-md focus:outline focus:border-grey-500  w-1/3 "
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
         />
 
-        <button className="px-6 py-2 border border-gray-300 rounded-md focus:outline font-serif  ">
+        <button
+          className="px-6 py-2 border border-gray-300 rounded-md  font-serif  "
+          onClick={() => handleAnalyze()}
+        >
           Analyze
         </button>
       </div>
