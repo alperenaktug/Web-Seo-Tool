@@ -5,7 +5,7 @@ export default function About() {
   return (
     <div className="flex flex-col  px-4 py-12 max-w-2xl mx-auto">
       <div>
-        <h1 className="text-4xl font-serif mb-4 font-600">Hakkımızda</h1>
+        <h1 className="text-4xl font-serif mb-4 font-500">Hakkımızda</h1>
         <p className="mb-4 mt-8 text-slate-700 font-serif text-lg ">
           <br />
           Merhaba ve hoş geldiniz! Biz webtool şirketi, dijital dünyada
@@ -27,7 +27,7 @@ export default function About() {
       <img src={imageSrc1} alt="İlgili resmin açıklaması" className="mb-8" />
       <br />
       <div>
-        <h1 className="text-4xl font-600 mb-4 font-serif">
+        <h1 className="text-4xl font-500 mb-4 font-serif">
           SEO (Arama Motoru Optimizasyonu) Nedir?
         </h1>
         <p className="mb-4 text-slate-700 text-lg">
@@ -44,7 +44,7 @@ export default function About() {
       <img src={imageSrc2} alt="İlgili resmin açıklaması" className="mb-8" />
       <br />
       <div>
-        <h1 className="text-4xl font-600 mb-4">Neden Bize Güvenmelisiniz?</h1>
+        <h1 className="text-4xl font-500 mb-4">Neden Bize Güvenmelisiniz?</h1>
         <p className="mb-4 text-slate-700 text-lg">
           Webtool şirketi olarak, web sitenizin başarısını artırmak için en son
           teknolojiyi ve en iyi uygulamaları kullanıyoruz. Uzman ekibimiz,

@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import PacmanLoader from "react-spinners/PacmanLoader";
 
 const Analyze4 = () => {
-  const { url: routeUrl } = useParams();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [data, setData] = useState(null);
@@ -11,15 +10,14 @@ const Analyze4 = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // API isteğinizin URL'i
-        const apiUrl =
-          "https://pagespeedonline.googleapis.com/pagespeedonline/v5/runPagespeed";
+        const url =
+          "https://www.googleapis.com/pagespeedonline/v5/runPagespeed";
         const params = {
-          url: decodeURIComponent(routeUrl),
-          key: "AIzaSyDgW0eXAWCf4d2EmUValEluWEIXdEsCMbM",
+          url: "https://developers.google.com",
+          key: "AIzaSyCltn6fh13lQKW6K7Ohr72Or4tE87Ld-kM",
         };
 
-        const response = await axios.get(apiUrl, { params });
+        const response = await axios.get(url, { params });
         setData(response.data);
       } catch (error) {
         setError(error);
@@ -29,15 +27,53 @@ const Analyze4 = () => {
     };
 
     fetchData();
-  }, [routeUrl]);
+  }, []);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
+  if (loading)
+    return (
+      <div className="flex flex-col justify-center items-center  mt-48 ">
+        <h1 className="mb-8 font-serif font-600 text-xl">
+          Sayfa Analiz Ediliyor...
+        </h1>
+        <PacmanLoader color="#000000" size={30} />
+      </div>
+    );
+  if (error) return <div className="text-red-500">Error: {error.message}</div>;
+
+  // Verilerden belirli 5 tanesini seçelim
+  const selectedData =
+    data.loadingExperience.metrics.CUMULATIVE_LAYOUT_SHIFT_SCORE;
 
   return (
-    <div>
-      <h1>PageSpeed Insights</h1>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
+    <div className="container mx-auto px-4 py-8">
+      <h1 className="text-2xl font-bold mb-4">PageSpeed Insights</h1>
+      <div className="bg-gray-100 p-4 rounded-lg">
+        <h2 className="text-lg font-semibold mb-2">Seçilen 5 Veri:</h2>
+        <p>
+          <strong>Percentile:</strong> {selectedData.percentile}
+          <br />
+          <strong>Category:</strong> {selectedData.category}
+          <br />
+          <strong>Distributions:</strong>
+          <br />
+          {selectedData.distributions.map((distribution, index) => (
+            <div key={index} className="flex items-center mb-1">
+              <div className="w-12 h-4 bg-green-500 mr-2"></div>
+              <span>
+                <strong>Min:</strong> {distribution.min},
+              </span>
+              &nbsp;
+              <span>
+                <strong>Max:</strong> {distribution.max},
+              </span>
+              &nbsp;
+              <span>
+                <strong>Proportion:</strong> {distribution.proportion}
+              </span>
+            </div>
+          ))}
+        </p>
+      </div>
     </div>
   );
 };

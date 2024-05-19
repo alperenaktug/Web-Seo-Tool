@@ -26,24 +26,24 @@ export default function Home() {
 
   return (
     <div className=" max-w-7xl justify-between mx-auto">
-      <div className="relative top-60 left-10 flex space-x-4 items-center mr-28">
+      <div className="relative top-60 left-2 flex space-x-4 items-center mr-48">
         <input
           type="text"
           placeholder="Enter URL to Analyze..."
-          className="px-28 py-2 border border-gray-300 rounded-md focus:outline focus:border-grey-500  w-1/3 "
+          className="px-28 py-2 border border-gray-300 rounded-md focus:outline focus:border-grey-500  w-1/2 "
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
         />
 
         <button
-          className="px-6 py-2 border border-gray-300 rounded-md  font-serif  "
+          className="px-6 py-2 border border-gray-300 rounded-md font-serif hover:border-gray-500   "
           onClick={() => handleAnalyze()}
         >
           Analyze
         </button>
       </div>
 
-      <div className="px-2 py-8 max-w-2xl mx-auto fixed right-6 mr-8">
+      <div className="px-2 py-8 max-w-2xl mx-auto fixed right-8 mr-8 ml-12">
         <div style={{ marginRight: "auto", marginLeft: 0 }}>
           <Slider {...settings}>
             <div>

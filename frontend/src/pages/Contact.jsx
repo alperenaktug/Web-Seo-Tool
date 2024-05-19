@@ -33,8 +33,8 @@ const Contact = () => {
     >
       <div className="flex gap-150px ">
         <div className="flex flex-col gap-30 font-700 ">
-          <h1 className=" font-600 text-5xl font-serif mt-6">Let{"'"}s talk</h1>
-          <p className="mt-16 mb-16 max-w-550px text-gray-600 text-2xl leading-35px">
+          <h1 className=" font-600 text-4xl font-serif mt-6">Let{"'"}s talk</h1>
+          <p className="mt-16 mb-16 max-w-550px text-gray-600 text-xxl leading-35px">
             You can send us your suggestions and wishes to make our application
             better Remember that we can provide a better service by contacting
             us!!
@@ -56,11 +56,11 @@ const Contact = () => {
         </div>
         <form
           onSubmit={onSubmit}
-          className="flex flex-col items-start gap-30px"
+          className="flex flex-col items-start gap-30px "
         >
           <label className="text-gray-600 text-xl font-medium">Your Name</label>
           <input
-            className="border-none w-650px h-72px pl-20px rounded-md bg-slate-300 text-gray-600 text-20px"
+            className="border-none w-8/12  h-16 pl-20px rounded-md bg-slate-300 text-gray-600 text-20px"
             type="text"
             placeholder="Enter your name"
             name="name"
@@ -69,7 +69,7 @@ const Contact = () => {
             Your Email
           </label>
           <input
-            className="border-none w-650px h-72px pl-20px rounded-md bg-slate-300 text-gray-600 text-20px"
+            className="border-none w-8/12  h-16 pl-20px rounded-md bg-slate-300 text-gray-600 text-20px"
             type="email"
             placeholder="Enter your email"
             name="email"

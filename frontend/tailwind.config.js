@@ -10,6 +10,8 @@ export default {
       width: {
         "700px": "700px",
         "650px": "650px",
+        "600px": "600px",
+        "625px": "625px",
       },
       height: {
         "78px": "78px",
