@@ -49,7 +49,7 @@ const Analyze4 = () => {
   const selectedData2 =
     data?.originLoadingExperience?.metrics?.CUMULATIVE_LAYOUT_SHIFT_SCORE;
   const selectedData3 = data?.lighthouseResult;
-  const selectedData4 = data?.lighthouseResult?.categories;
+  const selectedData4 = data.lighthouseResult.categories;
   const selectedData5 = data?.lighthouseResult?.audits;
 
   return (
