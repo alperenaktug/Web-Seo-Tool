@@ -49,14 +49,45 @@ const Analyze4 = () => {
   const selectedData2 =
     data?.originLoadingExperience?.metrics?.CUMULATIVE_LAYOUT_SHIFT_SCORE;
   const selectedData3 = data?.lighthouseResult;
-  const selectedData4 = data.lighthouseResult.categories;
+  const selectedData4 = data?.lighthouseResult?.categories;
+  const selectedData11 = data?.lighthouseResult?.categories.seo;
+  const selectedData22 = data?.lighthouseResult?.categories.best_practices;
+  const selectedData33 = data?.lighthouseResult?.categories.accessibility;
+
   const selectedData5 = data?.lighthouseResult?.audits;
 
   return (
     <>
+      <div className="flex flex-col items-center mt-8">
+        <h1 className="text-2xl font-bold mb-14 mt-6">Page Speed Results</h1>
+        <div className="flex space-x-4 mb-">
+          {Object.keys(selectedData4).map((categoryKey) => {
+            const category = selectedData4[categoryKey];
+            return (
+              <div key={categoryKey} className="mb-4">
+                <div className="flex items-center justify-center w-24 h-24 bg-gray-300 text-stone-700 font-600 rounded-full mb-2">
+                  {category.title}
+                </div>
+                <strong>Score:</strong> {(category.score * 100).toFixed(2)}
+                <br />
+              </div>
+            );
+          })}
+
+          <div className="flex items-center justify-center w-24 h-24 bg-green-500 text-white rounded-full">
+            Yazı 2
+          </div>
+          <div className="flex items-center justify-center w-24 h-24 bg-red-500 text-white rounded-full">
+            Yazı 3
+          </div>
+          <div className="flex items-center justify-center w-24 h-24 bg-yellow-500 text-white rounded-full">
+            Yazı 4
+          </div>
+        </div>
+      </div>
+
       {selectedData1 && (
         <div className="container mx-auto px-4 py-8">
-          <h1 className="text-2xl font-bold mb-4">PageSpeed Insights</h1>
           <div className="bg-gray-100 p-4 rounded-lg">
             <h2 className="text-lg font-semibold mb-2">Sayfa Yükleme Hızı</h2>
             <div>
@@ -151,9 +182,92 @@ const Analyze4 = () => {
       {selectedData4 && (
         <div className="container mx-auto px-4 py-8">
           <div className="bg-gray-100 p-4 rounded-lg">
-            <h2 className="text-lg font-semibold mb-2">Kategori Sonuçları</h2>
+            <h2 className="text-lg font-semibold mb-2">
+              Performance Sonuçları
+            </h2>
             {Object.keys(selectedData4).map((categoryKey) => {
               const category = selectedData4[categoryKey];
+              return (
+                <div key={categoryKey} className="mb-4">
+                  <strong>Id:</strong> {category.id}
+                  <br />
+                  <strong>Title:</strong> {category.title}
+                  <br />
+                  <strong>Description:</strong> {category.description}
+                  <br />
+                  <strong>Score:</strong> {category.score * 100}
+                  <br />
+                  <strong>Manual Description:</strong>{" "}
+                  {category.manualDescription}
+                  <br />
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+      {selectedData33 && (
+        <div className="container mx-auto px-4 py-8">
+          <div className="bg-gray-100 p-4 rounded-lg">
+            <h2 className="text-lg font-semibold mb-2">
+              Accessibility Kategorisi
+            </h2>
+            {Object.keys(selectedData33).map((categoryKey) => {
+              const category = selectedData33[categoryKey];
+              return (
+                <div key={categoryKey} className="mb-4">
+                  <strong>Id:</strong> {category.id}
+                  <br />
+                  <strong>Title:</strong> {category.title}
+                  <br />
+                  <strong>Description:</strong> {category.description}
+                  <br />
+                  <strong>Score:</strong> {category.score * 100}
+                  <br />
+                  <strong>Manual Description:</strong>{" "}
+                  {category.manualDescription}
+                  <br />
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {selectedData22 && (
+        <div className="container mx-auto px-4 py-8">
+          <div className="bg-gray-100 p-4 rounded-lg">
+            <h2 className="text-lg font-semibold mb-2">
+              En İyi Uygulamalar Kategorisi
+            </h2>
+            {Object.keys(selectedData22).map((categoryKey) => {
+              const category = selectedData22[categoryKey];
+              return (
+                <div key={categoryKey} className="mb-4">
+                  <strong>Id:</strong> {category.id}
+                  <br />
+                  <strong>Title:</strong> {category.title}
+                  <br />
+                  <strong>Description:</strong> {category.description}
+                  <br />
+                  <strong>Score:</strong> {category.score * 100}
+                  <br />
+                  <strong>Manual Description:</strong>{" "}
+                  {category.manualDescription}
+                  <br />
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {selectedData11 && (
+        <div className="container mx-auto px-4 py-8">
+          <div className="bg-gray-100 p-4 rounded-lg">
+            <h2 className="text-lg font-semibold mb-2">SEO Kategorisi</h2>
+            {Object.keys(selectedData11).map((categoryKey) => {
+              const category = selectedData11[categoryKey];
               return (
                 <div key={categoryKey} className="mb-4">
                   <strong>Id:</strong> {category.id}

@@ -30,7 +30,7 @@ export default function Home() {
         <input
           type="text"
           placeholder="Enter URL to Analyze..."
-          className="px-28 py-2 border border-gray-300 rounded-md focus:outline focus:border-grey-500  w-1/2 "
+          className="px-28 py-2 border border-gray-300 rounded-md focus:outline focus:border-grey-500  w-1/2  text-center"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
         />
