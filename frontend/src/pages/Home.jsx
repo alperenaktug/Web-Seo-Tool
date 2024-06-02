@@ -5,12 +5,9 @@ import animationSvg4 from "../assets/animation4.svg";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-// import firstImage from "../images/conduct-a-web-usability-test-infographic.webp";
-// import secondImage from "../images/designer-creating-website-on-computer-600nw-2187607767.webp";
-// import thirdImage from "../images/How-To-Perform-a-Usability-Test-4-12.png";
-// import fourthImage from "../images/web-design-development-usibility.png";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+
 export default function Home() {
   const settings = {
     dots: true,
@@ -28,6 +25,12 @@ export default function Home() {
     navigate(`/analyze4/${encodeURIComponent(inputValue)}`);
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleAnalyze();
+    }
+  };
+
   return (
     <div className=" max-w-7xl justify-between mx-auto">
       <div className="relative top-60 left-2 flex space-x-4 items-center mr-48">
@@ -37,11 +40,12 @@ export default function Home() {
           className="px-28 py-2 border border-gray-300 rounded-md focus:outline focus:border-grey-500  w-1/2  text-center"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
+          onKeyDown={handleKeyDown} // Yeni eklenen satır
         />
 
         <button
-          className="px-6 py-2 border border-gray-300 rounded-md font-serif hover:border-gray-500   "
-          onClick={() => handleAnalyze()}
+          className="px-6 py-2 border border-gray-300 rounded-md font-serif hover:border-gray-500"
+          onClick={handleAnalyze}
         >
           Analyze
         </button>
