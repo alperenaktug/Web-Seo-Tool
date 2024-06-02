@@ -1,10 +1,14 @@
+import animationSvg from "../assets/animation.svg";
+import animationSvg2 from "../assets/animation2.svg";
+import animationSvg3 from "../assets/animation3.svg";
+import animationSvg4 from "../assets/animation4.svg";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import firstImage from "../images/conduct-a-web-usability-test-infographic.webp";
-import secondImage from "../images/designer-creating-website-on-computer-600nw-2187607767.webp";
-import thirdImage from "../images/How-To-Perform-a-Usability-Test-4-12.png";
-import fourthImage from "../images/web-design-development-usibility.png";
+// import firstImage from "../images/conduct-a-web-usability-test-infographic.webp";
+// import secondImage from "../images/designer-creating-website-on-computer-600nw-2187607767.webp";
+// import thirdImage from "../images/How-To-Perform-a-Usability-Test-4-12.png";
+// import fourthImage from "../images/web-design-development-usibility.png";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 export default function Home() {
@@ -47,16 +51,36 @@ export default function Home() {
         <div style={{ marginRight: "auto", marginLeft: 0 }}>
           <Slider {...settings}>
             <div>
-              <img src={firstImage} alt="First Slide" />
+              <img
+                src={animationSvg}
+                alt={animationSvg}
+                width={512}
+                height={512}
+              />
             </div>
             <div>
-              <img src={secondImage} alt="Second Slide" />
+              <img
+                src={animationSvg2}
+                alt={animationSvg2}
+                width={512}
+                height={512}
+              />
             </div>
             <div>
-              <img src={thirdImage} alt="Third Slide" />
+              <img
+                src={animationSvg3}
+                alt={animationSvg3}
+                width={512}
+                height={512}
+              />
             </div>
             <div>
-              <img src={fourthImage} alt="Fourth Slide" />
+              <img
+                src={animationSvg4}
+                alt={animationSvg4}
+                width={512}
+                height={512}
+              />
             </div>
           </Slider>
         </div>

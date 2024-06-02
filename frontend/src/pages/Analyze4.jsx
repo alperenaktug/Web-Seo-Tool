@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import PacmanLoader from "react-spinners/PacmanLoader";
+import RingLoader from "react-spinners/RingLoader";
 import { useParams } from "react-router-dom";
 
 const Analyze4 = () => {
@@ -8,18 +8,31 @@ const Analyze4 = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [data, setData] = useState(null);
+  const [finalUrl, setFinalUrl] = useState("");
 
   useEffect(() => {
+    let modifiedUrl = decodeURIComponent(routeUrl);
+    if (!/^https?:\/\//i.test(modifiedUrl)) {
+      modifiedUrl = "http://" + modifiedUrl;
+    }
+    setFinalUrl(modifiedUrl);
+
     const fetchData = async () => {
       try {
         const url =
-          "https://www.googleapis.com/pagespeedonline/v5/runPagespeed";
+          "https://pagespeedonline.googleapis.com/pagespeedonline/v5/runPagespeed";
         const params = {
-          url: decodeURIComponent(routeUrl),
+          url: modifiedUrl,
           key: "AIzaSyCltn6fh13lQKW6K7Ohr72Or4tE87Ld-kM",
+          category: ["PERFORMANCE", "ACCESSIBILITY", "BEST-PRACTICES", "SEO"],
+          locale: "tr_TR",
         };
-
-        const response = await axios.get(url, { params });
+        const response = await axios.get(url, {
+          params,
+          paramsSerializer: {
+            indexes: null,
+          },
+        });
         setData(response.data);
       } catch (error) {
         setError(error);
@@ -29,7 +42,7 @@ const Analyze4 = () => {
     };
 
     fetchData();
-  }, []);
+  }, [routeUrl]);
 
   if (loading)
     return (
@@ -37,304 +50,250 @@ const Analyze4 = () => {
         <h1 className="mb-8 font-serif font-500 text-xl">
           Sayfa Analiz Ediliyor...
         </h1>
-        <PacmanLoader color="#000000" size={30} />
+
+        <RingLoader color="#000000" size={80} />
       </div>
     );
 
-  if (error) return <div className="text-red-500">Error: {error.message}</div>;
+  if (error) return <div className="text-red-500">Hata: {error.message}</div>;
 
-  const selectedData1 =
-    data?.loadingExperience?.metrics?.CUMULATIVE_LAYOUT_SHIFT_SCORE;
+  const lighthouseResult = data?.lighthouseResult;
 
-  const selectedData2 =
-    data?.originLoadingExperience?.metrics?.CUMULATIVE_LAYOUT_SHIFT_SCORE;
-  const selectedData3 = data?.lighthouseResult;
-  const selectedData4 = data?.lighthouseResult?.categories;
-  const selectedData11 = data?.lighthouseResult?.categories.seo;
-  const selectedData22 = data?.lighthouseResult?.categories.best_practices;
-  const selectedData33 = data?.lighthouseResult?.categories.accessibility;
+  const categories = lighthouseResult?.categories || {};
+  const audits = lighthouseResult?.audits || {};
 
-  const selectedData5 = data?.lighthouseResult?.audits;
+  console.log(categories);
 
   return (
     <>
-      <div className="flex flex-col items-center mt-8">
-        <h1 className="text-2xl font-bold mb-14 mt-6">Page Speed Results</h1>
-        <div className="flex space-x-4 mb-">
-          {Object.keys(selectedData4).map((categoryKey) => {
-            const category = selectedData4[categoryKey];
+      <div className="flex flex-col items-center mt-32 border border-gray-300 rounded-lg p-4 mx-32 ">
+        <h1 className="text-2xl font-bold mb-14 mt-6">
+          Sayfa Analiz Sonuçları
+        </h1>
+        <div className="flex flex-wrap space-x-4 mb-4">
+          {Object.keys(categories).map((categoryKey) => {
+            const category = categories[categoryKey];
             return (
-              <div key={categoryKey} className="mb-4">
-                <div className="flex items-center justify-center w-24 h-24 bg-gray-300 text-stone-700 font-600 rounded-full mb-2">
+              <div
+                key={categoryKey}
+                className="mb-4 transform transition-transform duration-700 hover:scale-125 "
+              >
+                <div className="flex items-center justify-center w-24 h-24 bg-orange-300 text-md text-black font-500 rounded-lg mb-2 mr-6">
                   {category.title}
                 </div>
-                <strong>Score:</strong> {(category.score * 100).toFixed(2)}
+                <strong>Puan:</strong> {(category.score * 100).toFixed(2)}
                 <br />
               </div>
             );
           })}
-
-          <div className="flex items-center justify-center w-24 h-24 bg-green-500 text-white rounded-full">
-            Yazı 2
-          </div>
-          <div className="flex items-center justify-center w-24 h-24 bg-red-500 text-white rounded-full">
-            Yazı 3
-          </div>
-          <div className="flex items-center justify-center w-24 h-24 bg-yellow-500 text-white rounded-full">
-            Yazı 4
-          </div>
         </div>
       </div>
 
-      {selectedData1 && (
-        <div className="container mx-auto px-4 py-8">
-          <div className="bg-gray-100 p-4 rounded-lg">
-            <h2 className="text-lg font-semibold mb-2">Sayfa Yükleme Hızı</h2>
-            <div>
-              <strong>Percentile:</strong> {selectedData1.percentile}
-              <br />
-              <strong>Category:</strong> {selectedData1.category}
-              <br />
-              <strong>Overall Category:</strong>{" "}
-              {data?.loadingExperience?.overall_category}
-              <br />
-              <strong>Initial URL:</strong>{" "}
-              {data?.loadingExperience?.initial_url}
-              <br />
-              <strong>Distributions:</strong>
-              <br />
-              {selectedData1.distributions.map((distribution, index) => (
-                <div key={index} className="flex items-center mb-1">
-                  <div className="w-12 h-4 bg-green-500 mr-2"></div>
-                  <span>
-                    <strong>Min:</strong> {distribution.min},
-                  </span>
-                  &nbsp;
-                  <span>
-                    <strong>Max:</strong> {distribution.max},
-                  </span>
-                  &nbsp;
-                  <span>
-                    <strong>Proportion:</strong> {distribution.proportion}
-                  </span>
-                </div>
-              ))}
-            </div>
+      {/*
+      <div className="grid grid-cols-2 gap-4 mt-14">
+        {Object.entries(data.loadingExperience.metrics).map(([key, metric]) => (
+          <div key={key} className="bg-gray-100 p-4 rounded-lg">
+            <h1 className="text-lg font-semibold mb-2">
+              {key === "first-contentful-paint"
+                ? "İlk İçerik Boyanma Süresi"
+                : key}
+            </h1>
+            <strong className="mr-2">Kategorisi:</strong> {metric.category}
+           
           </div>
-        </div>
-      )}
-      {selectedData2 && (
-        <div className="container mx-auto px-4 py-8">
-          <div className="bg-gray-100 p-4 rounded-lg">
-            <h2 className="text-lg font-semibold mb-2">
-              Başlangıç Yükleme Deneyimi
-            </h2>
-            <div>
-              <strong>Percentile:</strong> {selectedData2.percentile}
-              <br />
-              <strong>Category:</strong> {selectedData2.category}
-              <br />
-              <strong>Distributions:</strong>
-              <br />
-              {selectedData2.distributions.map((distribution, index) => (
-                <div key={index} className="flex items-center mb-1">
-                  <div className="w-12 h-4 bg-green-500 mr-2"></div>
-                  <span>
-                    <strong>Min:</strong> {distribution.min},
-                  </span>
-                  &nbsp;
-                  <span>
-                    <strong>Max:</strong> {distribution.max},
-                  </span>
-                  &nbsp;
-                  <span>
-                    <strong>Proportion:</strong> {distribution.proportion}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {selectedData3 && (
-        <div className="container mx-auto px-4 py-8">
-          <div className="bg-gray-100 p-4 rounded-lg">
+        ))}
+      </div>
+      */}
+      {lighthouseResult && (
+        <div className="container mx-auto px-4 py-8 mt-14 ">
+          <div className="bg-gray-100 p-4 rounded-lg border border-gray-400">
             <h2 className="text-lg font-semibold mb-2">
               Görüntüleme Sonuçları
             </h2>
             <div>
-              <strong>RequestedUrl:</strong> {selectedData3.requestedUrl}
+              <strong>Talep Edilen URL:</strong> {lighthouseResult.requestedUrl}
               <br />
-              <strong>FinalUrl:</strong> {selectedData3.finalUrl}
+              <strong>Final URL:</strong> {lighthouseResult.finalUrl}
               <br />
-              <strong>LighthouseVersion:</strong>{" "}
-              {selectedData3.lighthouseVersion}
+              <strong>Lighthouse Versiyonu:</strong>{" "}
+              {lighthouseResult.lighthouseVersion}
               <br />
-              <strong>UserAgent:</strong> {selectedData3.userAgent}
+              <strong>Kullanıcı Aracısı:</strong> {lighthouseResult.userAgent}
               <br />
-              <strong>FetchTime:</strong> {selectedData3.fetchTime}
+              <strong>Alma Zamanı:</strong> {lighthouseResult.fetchTime}
               <br />
             </div>
           </div>
         </div>
       )}
-      {selectedData4 && (
-        <div className="container mx-auto px-4 py-8">
-          <div className="bg-gray-100 p-4 rounded-lg">
-            <h2 className="text-lg font-semibold mb-2">
-              Performance Sonuçları
-            </h2>
-            {Object.keys(selectedData4).map((categoryKey) => {
-              const category = selectedData4[categoryKey];
-              return (
-                <div key={categoryKey} className="mb-4">
-                  <strong>Id:</strong> {category.id}
-                  <br />
-                  <strong>Title:</strong> {category.title}
-                  <br />
-                  <strong>Description:</strong> {category.description}
-                  <br />
-                  <strong>Score:</strong> {category.score * 100}
-                  <br />
-                  <strong>Manual Description:</strong>{" "}
-                  {category.manualDescription}
-                  <br />
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      )}
-      {selectedData33 && (
-        <div className="container mx-auto px-4 py-8">
-          <div className="bg-gray-100 p-4 rounded-lg">
-            <h2 className="text-lg font-semibold mb-2">
-              Accessibility Kategorisi
-            </h2>
-            {Object.keys(selectedData33).map((categoryKey) => {
-              const category = selectedData33[categoryKey];
-              return (
-                <div key={categoryKey} className="mb-4">
-                  <strong>Id:</strong> {category.id}
-                  <br />
-                  <strong>Title:</strong> {category.title}
-                  <br />
-                  <strong>Description:</strong> {category.description}
-                  <br />
-                  <strong>Score:</strong> {category.score * 100}
-                  <br />
-                  <strong>Manual Description:</strong>{" "}
-                  {category.manualDescription}
-                  <br />
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      )}
 
-      {selectedData22 && (
-        <div className="container mx-auto px-4 py-8">
-          <div className="bg-gray-100 p-4 rounded-lg">
-            <h2 className="text-lg font-semibold mb-2">
-              En İyi Uygulamalar Kategorisi
-            </h2>
-            {Object.keys(selectedData22).map((categoryKey) => {
-              const category = selectedData22[categoryKey];
-              return (
-                <div key={categoryKey} className="mb-4">
-                  <strong>Id:</strong> {category.id}
-                  <br />
-                  <strong>Title:</strong> {category.title}
-                  <br />
-                  <strong>Description:</strong> {category.description}
-                  <br />
-                  <strong>Score:</strong> {category.score * 100}
-                  <br />
-                  <strong>Manual Description:</strong>{" "}
-                  {category.manualDescription}
-                  <br />
+      <div className="container mx-auto px-4 py-8">
+        <div className="bg-gray-100 p-4 rounded-lg border border-gray-400">
+          <h2 className="text-lg font-semibold mb-2">
+            Sunucu Arkaplan Gecikmeleri
+          </h2>
+          <strong>Başlık:</strong>{" "}
+          {data.lighthouseResult.audits["network-server-latency"].title}
+          <br />
+          <strong>Açıklama:</strong>{" "}
+          {data.lighthouseResult.audits["network-server-latency"].description}
+          <br />
+          <strong>Puan:</strong>{" "}
+          {data.lighthouseResult.audits["network-server-latency"].score}
+          <br />
+          <strong>Gösterim Modu:</strong>{" "}
+          {
+            data.lighthouseResult.audits["network-server-latency"]
+              .scoreDisplayMode
+          }
+          <br />
+          <strong>Gösterim Değeri:</strong>{" "}
+          {data.lighthouseResult.audits["network-server-latency"].displayValue}
+          <br />
+          <strong>Detaylar:</strong>
+          <ul>
+            {data.lighthouseResult.audits[
+              "network-server-latency"
+            ].details.items.map((item, index) => (
+              <li key={index}>
+                {item.origin}: {item.serverResponseTime} ms
+                <div className="flex mt-1">
+                  <div
+                    className="h-6 bg-blue-500"
+                    style={{ width: `${item.serverResponseTime}px` }}
+                  ></div>
                 </div>
-              );
-            })}
-          </div>
-        </div>
-      )}
-
-      {selectedData11 && (
-        <div className="container mx-auto px-4 py-8">
-          <div className="bg-gray-100 p-4 rounded-lg">
-            <h2 className="text-lg font-semibold mb-2">SEO Kategorisi</h2>
-            {Object.keys(selectedData11).map((categoryKey) => {
-              const category = selectedData11[categoryKey];
-              return (
-                <div key={categoryKey} className="mb-4">
-                  <strong>Id:</strong> {category.id}
-                  <br />
-                  <strong>Title:</strong> {category.title}
-                  <br />
-                  <strong>Description:</strong> {category.description}
-                  <br />
-                  <strong>Score:</strong> {category.score * 100}
-                  <br />
-                  <strong>Manual Description:</strong>{" "}
-                  {category.manualDescription}
-                  <br />
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      )}
-
-      {selectedData5 && (
-        <div className="container mx-auto px-4 py-8">
-          <div className="bg-gray-100 p-4 rounded-lg">
-            <h2 className="text-lg font-semibold mb-2">Denetim Sonuçları</h2>
-            {Object.entries(selectedData5).map(([key, audit]) => (
-              <div key={key} className="mb-4">
-                <strong>Id:</strong> {audit.id}
-                <br />
-                <strong>Title:</strong> {audit.title}
-                <br />
-                <strong>Description:</strong> {audit.description}
-                <br />
-                <strong>Score:</strong> {audit.score}
-                <br />
-                <strong>ScoreDisplayMode:</strong> {audit.scoreDisplayMode}
-                <br />
-                <strong>DisplayValue:</strong> {audit.displayValue}
-                <br />
-                {audit.explanation && (
-                  <>
-                    <strong>Explanation:</strong> {audit.explanation}
-                    <br />
-                  </>
-                )}
-                {audit.errorMessage && (
-                  <>
-                    <strong>ErrorMessage:</strong> {audit.errorMessage}
-                    <br />
-                  </>
-                )}
-                {audit.warnings && (
-                  <>
-                    <strong>Warnings:</strong> {audit.warnings}
-                    <br />
-                  </>
-                )}
-                {audit.details && (
-                  <>
-                    <strong>Details:</strong> {JSON.stringify(audit.details)}
-                    <br />
-                  </>
-                )}
-              </div>
+              </li>
             ))}
+          </ul>
+        </div>
+      </div>
+
+      <div className="container mx-auto px-4 py-8">
+        <div className="bg-gray-100 p-4 rounded-lg border border-gray-400">
+          <h2 className="text-lg font-semibold mb-2">İlk Giriş Gecikmesi</h2>
+          <strong>Kategorisi:</strong>{" "}
+          {data.loadingExperience.metrics.FIRST_INPUT_DELAY_MS.category}
+          <br />
+          <strong>Overall Kategori:</strong>{" "}
+          {data.loadingExperience.overall_category}
+          <br />
+          <strong>Dağıtımlar:</strong>
+          <ul>
+            {data.loadingExperience.metrics.FIRST_INPUT_DELAY_MS.distributions.map(
+              (distribution, index) => (
+                <li key={index}>
+                  Min: {distribution.min}, Max: {distribution.max}, Proportion:{" "}
+                  {distribution.proportion}
+                  <span
+                    className="block h-2 bg-blue-500"
+                    style={{ width: `${distribution.proportion * 100}%` }}
+                  ></span>
+                </li>
+              )
+            )}
+          </ul>
+        </div>
+      </div>
+
+      <div className="container mx-auto px-4 py-8">
+        <div className="bg-gray-100 p-4 rounded-lg border border-gray-400">
+          <h2 className="text-lg font-semibold mb-2">Hız İndeksi</h2>
+          <strong>Başlık:</strong>{" "}
+          {data.lighthouseResult.audits["speed-index"].title}
+          <br />
+          <strong>Açıklama:</strong>{" "}
+          {data.lighthouseResult.audits["speed-index"].description}
+          <br />
+          <strong>Puan:</strong>{" "}
+          {data.lighthouseResult.audits["speed-index"].score}
+          <br />
+          <strong>Gösterim Modu:</strong>{" "}
+          {data.lighthouseResult.audits["speed-index"].scoreDisplayMode}
+          <br />
+          <strong>Gösterim Değeri:</strong>{" "}
+          {data.lighthouseResult.audits["speed-index"].displayValue}
+          <br />
+          <strong>Nümerik Değer:</strong>{" "}
+          {data.lighthouseResult.audits["speed-index"].numericValue}{" "}
+          {data.lighthouseResult.audits["speed-index"].numericUnit}
+          <div
+            className="h-2 bg-blue-500 mt-2"
+            style={{
+              width: `${
+                data.lighthouseResult.audits["speed-index"].score * 100
+              }%`,
+            }}
+          ></div>
+        </div>
+      </div>
+
+      {Object.keys(categories).map((categoryKey) => {
+        const category = categories[categoryKey];
+        return (
+          <div key={categoryKey} className="container mx-auto px-4 py-8">
+            <div className="bg-gray-100 p-4 rounded-lg border border-gray-400">
+              <h2 className="text-lg font-semibold mb-2">
+                {category.title} Kategorisi
+              </h2>
+              <strong>Id:</strong> {category.id}
+              <br />
+              <strong>Başlık:</strong> {category.title}
+              <br />
+              <strong>Açıklama:</strong> {category.description}
+              <br />
+              <strong>Puan:</strong> {(category.score * 100).toFixed(2)}
+              <br />
+              <strong>Elle Açıklama:</strong> {category.manualDescription}
+              <br />
+            </div>
+          </div>
+        );
+      })}
+
+      {Object.entries(audits).map(([key, audit]) => (
+        <div key={key} className="container mx-auto px-4 py-8">
+          <div className="bg-gray-100 p-4 rounded-lg border border-gray-400">
+            <h2 className="text-lg font-semibold mb-2">{audit.title}</h2>
+            <strong>Id:</strong> {audit.id}
+            <br />
+            <strong>Başlık:</strong> {audit.title}
+            <br />
+            <strong>Açıklama:</strong> {audit.description}
+            <br />
+            <strong>Puan:</strong> {audit.score}
+            <br />
+            <strong>Puan Gösterim Modu:</strong> {audit.scoreDisplayMode}
+            <br />
+            <strong>Görüntü Değeri:</strong> {audit.displayValue}
+            <br />
+            {audit.explanation && (
+              <>
+                <strong>Açıklama:</strong> {audit.explanation}
+                <br />
+              </>
+            )}
+            {audit.errorMessage && (
+              <>
+                <strong>Hata Mesajı:</strong> {audit.errorMessage}
+                <br />
+              </>
+            )}
+            {audit.warnings && (
+              <>
+                <strong>Uyarılar:</strong> {audit.warnings}
+                <br />
+              </>
+            )}
+            {audit.details && (
+              <>
+                <strong>Detaylar:</strong> {JSON.stringify(audit.details)}
+                <br />
+              </>
+            )}
           </div>
         </div>
-      )}
+      ))}
     </>
   );
 };
