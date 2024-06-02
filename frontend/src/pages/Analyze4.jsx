@@ -23,7 +23,7 @@ const Analyze4 = () => {
           "https://pagespeedonline.googleapis.com/pagespeedonline/v5/runPagespeed";
         const params = {
           url: modifiedUrl,
-          key: "AIzaSyCltn6fh13lQKW6K7Ohr72Or4tE87Ld-kM",
+          key: import.meta.VITE_PAGESPEED_API_KEY,
           category: ["PERFORMANCE", "ACCESSIBILITY", "BEST-PRACTICES", "SEO"],
           locale: "tr_TR",
         };
