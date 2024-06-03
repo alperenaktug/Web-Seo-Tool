@@ -1,1 +1,1 @@
-## Web Seo Tool (Nodejs , Reactjs , Firebase , TailwindCss)
+## Web Seo Tool (Nodejs , Reactjs , Redux ,  Firebase , TailwindCss)
