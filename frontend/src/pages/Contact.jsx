@@ -5,9 +5,7 @@ import call_icon from "../assets/call_icon.svg";
 const Contact = () => {
   const onSubmit = async (event) => {
     event.preventDefault();
-
     const formData = new FormData(event.target);
-
     formData.append("access_key", "6aa29518-c008-4ce4-9647-905d07ae4af5");
 
     const object = Object.fromEntries(formData);
@@ -23,69 +21,93 @@ const Contact = () => {
     }).then((res) => res.json());
 
     if (res.success) {
-      alert(res.message);
+      alert("Mesajınız başarıyla gönderildi!");
+      event.target.reset();
     }
   };
+
   return (
-    <div
-      id="contact"
-      className="flex flex-col items-center justify-center gap-80px m-80px m-170px"
-    >
-      <div className="flex gap-150px ">
-        <div className="flex flex-col gap-30 font-700 ">
-          <h1 className=" font-600 text-4xl font-serif mt-6">Let{"'"}s talk</h1>
-          <p className="mt-16 mb-16 max-w-550px text-gray-600 text-xxl leading-35px">
-            You can send us your suggestions and wishes to make our application
-            better Remember that we can provide a better service by contacting
-            us!!
+    <div id="contact" className="max-w-7xl mx-auto px-6 py-12 md:py-24">
+      <div className="flex flex-col lg:flex-row gap-12 lg:gap-24 justify-center items-start">
+        {/* Sol Taraf: İletişim Bilgileri */}
+        <div className="w-full lg:w-1/2 space-y-8">
+          <h1 className="text-4xl md:text-5xl font-bold font-serif text-gray-800">
+            Let's talk
+          </h1>
+          <p className="text-gray-600 text-lg leading-relaxed max-w-lg">
+            Uygulamamızı daha iyi hale getirmek için öneri ve isteklerinizi bize
+            gönderebilirsiniz. Sizinle iletişimde kalarak daha iyi bir hizmet
+            sunabiliriz!
           </p>
-          <div className="flex flex-col gap-30px text-gray-400 text-22px">
-            <div className="flex items-center gap-20px">
-              <img className="text-" src={mail_icon} alt="" />{" "}
-              <p className="text-gray-600 text-lg">webtool.2009@gmail.com</p>
+
+          <div className="space-y-6">
+            <div className="flex items-center gap-5 group">
+              <div className="p-3 bg-slate-100 rounded-full group-hover:bg-slate-200 transition-colors">
+                <img src={mail_icon} alt="Email" className="w-6 h-6" />
+              </div>
+              <p className="text-gray-700 font-medium">
+                webtool.2009@gmail.com
+              </p>
             </div>
-            <div className="flex items-center gap-20px">
-              <img src={call_icon} alt="" />{" "}
-              <p className="text-gray-600 text-lg">0507-865-6213</p>
+
+            <div className="flex items-center gap-5 group">
+              <div className="p-3 bg-slate-100 rounded-full group-hover:bg-slate-200 transition-colors">
+                <img src={call_icon} alt="Phone" className="w-6 h-6" />
+              </div>
+              <p className="text-gray-700 font-medium">0507-865-6213</p>
             </div>
-            <div className="flex items-center gap-20px">
-              <img src={location_icon} alt="" />{" "}
-              <p className="text-gray-600 text-lg">Denizli , Türkiye</p>
+
+            <div className="flex items-center gap-5 group">
+              <div className="p-3 bg-slate-100 rounded-full group-hover:bg-slate-200 transition-colors">
+                <img src={location_icon} alt="Location" className="w-6 h-6" />
+              </div>
+              <p className="text-gray-700 font-medium">Denizli, Türkiye</p>
             </div>
           </div>
         </div>
+
+        {/* Sağ Taraf: Form */}
         <form
           onSubmit={onSubmit}
-          className="flex flex-col items-start gap-30px "
+          className="w-full lg:w-1/2 flex flex-col gap-6 bg-white p-2 md:p-0"
         >
-          <label className="text-gray-600 text-xl font-medium">Your Name</label>
-          <input
-            className="border-none w-8/12  h-16 pl-20px rounded-md bg-slate-300 text-gray-600 text-20px"
-            type="text"
-            placeholder="Enter your name"
-            name="name"
-          />
-          <label className="text-gray-600 text-xl  font-medium">
-            Your Email
-          </label>
-          <input
-            className="border-none w-8/12  h-16 pl-20px rounded-md bg-slate-300 text-gray-600 text-20px"
-            type="email"
-            placeholder="Enter your email"
-            name="email"
-          />
-          <label className="text-gray-600 font-medium text-xl ">
-            Write your message here
-          </label>
-          <textarea
-            className="w-650px border-none p-25px rounded-md bg-slate-300 text-gray-600 text-20px"
-            name="message"
-            rows="3"
-            placeholder="Enter your message"
-          ></textarea>
+          <div className="flex flex-col gap-2">
+            <label className="text-gray-700 font-semibold">Your Name</label>
+            <input
+              className="w-full p-4 rounded-lg bg-slate-100 border border-transparent focus:border-slate-400 focus:bg-white outline-none transition-all"
+              type="text"
+              placeholder="Enter your name"
+              name="name"
+              required
+            />
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <label className="text-gray-700 font-semibold">Your Email</label>
+            <input
+              className="w-full p-4 rounded-lg bg-slate-100 border border-transparent focus:border-slate-400 focus:bg-white outline-none transition-all"
+              type="email"
+              placeholder="Enter your email"
+              name="email"
+              required
+            />
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <label className="text-gray-700 font-semibold">
+              Write your message here
+            </label>
+            <textarea
+              className="w-full p-4 rounded-lg bg-slate-100 border border-transparent focus:border-slate-400 focus:bg-white outline-none transition-all min-h-[150px]"
+              name="message"
+              rows="5"
+              placeholder="Enter your message"
+              required
+            ></textarea>
+          </div>
 
           <button
-            className="border-none bg-slate-500   text-white rounded-full bg- text-22px p-5 px-15 mb-12 cursor-pointer transition-all duration-300 hover:scale-110 transition-all duration-300"
+            className="w-full md:w-max px-10 py-4 bg-slate-700 text-white font-bold rounded-full hover:bg-slate-800 hover:scale-105 active:scale-95 transition-all duration-300 shadow-md"
             type="submit"
           >
             Submit now
