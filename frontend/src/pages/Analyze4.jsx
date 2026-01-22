@@ -13,7 +13,7 @@ const MetricCard = ({ title, value, description, score }) => {
   return (
     <div
       className={`p-6 rounded-xl border border-gray-100 shadow-sm ${getBgColor(
-        score
+        score,
       )} transition-all`}
     >
       <h4 className="text-gray-500 text-xs uppercase font-bold tracking-widest">
@@ -67,6 +67,10 @@ const Analyze4 = () => {
             strategy: "mobile",
             locale: "tr",
           },
+          // DÜZELTME: Google API'sinin beklediği format için parametreleri serialize ediyoruz
+          paramsSerializer: {
+            indexes: null, // Bu ayar category[] yerine category= gönderilmesini sağlar
+          },
         });
 
         if (response.data) {
@@ -74,6 +78,9 @@ const Analyze4 = () => {
           setData(response.data);
         }
       } catch (err) {
+        // Hata durumunda daha detaylı log alalım
+        console.error("API Hatası:", err);
+
         if (
           (err.response?.status === 429 || err.response?.status >= 500) &&
           retryCount < 2
@@ -83,7 +90,7 @@ const Analyze4 = () => {
         }
         setError(
           err.response?.data?.error?.message ||
-            "Analiz sırasında bir hata oluştu."
+            "Analiz sırasında bir hata oluştu. Lütfen URL'yi ve API anahtarınızı kontrol edin.",
         );
       } finally {
         setLoading(false);
@@ -126,7 +133,6 @@ const Analyze4 = () => {
 
   return (
     <div className="max-w-6xl mx-auto p-6 mb-20">
-      {/* 1. Bölüm: Genel Skorlar */}
       <div className="border border-gray-200 rounded-2xl p-8 bg-white shadow-sm mt-20">
         <h1 className="text-3xl font-bold mb-10 text-center text-gray-800">
           Analiz Sonuçları
@@ -142,8 +148,8 @@ const Analyze4 = () => {
                   cat.score >= 0.9
                     ? "text-green-600"
                     : cat.score >= 0.5
-                    ? "text-orange-500"
-                    : "text-red-500"
+                      ? "text-orange-500"
+                      : "text-red-500"
                 }`}
               >
                 {Math.round(cat.score * 100)}
@@ -156,7 +162,6 @@ const Analyze4 = () => {
         </div>
       </div>
 
-      {/* 2. Bölüm: Core Web Vitals (Hız Metrikleri) */}
       <div className="mt-12">
         <h2 className="text-2xl font-bold mb-6 text-gray-700">
           Performans Metrikleri
@@ -183,7 +188,6 @@ const Analyze4 = () => {
         </div>
       </div>
 
-      {/* 3. Bölüm: İyileştirme Önerileri (Opportunities) */}
       <div className="mt-12 bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
         <div className="bg-gray-900 text-white px-8 py-5">
           <h3 className="text-xl font-bold">Nasıl Hızlandırılır?</h3>
@@ -197,12 +201,12 @@ const Analyze4 = () => {
               (a) =>
                 a.details?.type === "opportunity" &&
                 a.score !== null &&
-                a.score < 0.9
+                a.score < 0.9,
             )
             .sort(
               (a, b) =>
                 (b.details?.overallSavingsMs || 0) -
-                (a.details?.overallSavingsMs || 0)
+                (a.details?.overallSavingsMs || 0),
             )
             .map((opt) => (
               <div
@@ -214,7 +218,7 @@ const Analyze4 = () => {
                     {opt.title}
                   </h4>
                   <p className="text-gray-500 text-sm mt-1 leading-relaxed">
-                    {opt.description.split("[")[0]}
+                    {opt.description?.split("[")[0]}
                   </p>
                 </div>
                 <div className="mt-4 md:mt-0 px-4 py-2 bg-red-50 text-red-600 font-bold rounded-lg whitespace-nowrap border border-red-100">
@@ -225,7 +229,6 @@ const Analyze4 = () => {
         </div>
       </div>
 
-      {/* 4. Bölüm: Teknik Detaylar */}
       <div className="mt-12 p-6 bg-gray-50 rounded-2xl border border-gray-200 text-gray-600 text-sm">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <p>
